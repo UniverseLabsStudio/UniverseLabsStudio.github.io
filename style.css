@@ -51,7 +51,7 @@ header {
 
 .logo {
     max-width: 200px;
-    margin-left: 2rem;
+    margin-left: 0rem;
 }
 
 .logo img {
@@ -96,7 +96,8 @@ main {
 h1 {
     font-family: 'Dune Rise', sans-serif;
     font-size: 3rem;
-    letter-spacing: 0.3em;
+    letter-spacing: 1em;
+    line-height: 2;
     font-weight: normal;
     text-align: center;
     padding: 0 2rem;

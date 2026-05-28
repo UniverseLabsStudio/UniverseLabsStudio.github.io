@@ -1,25 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universe Labs</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="./public/images/favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universe Labs | Spatial Digital Twins, XR & Edge R&D</title>
+  <meta name="description" content="Universe Labs is a spatial computing pioneer specializing in 3D Digital Twins, WebXR, and Edge Computing R&D encompassing local AI and blockchain.">
+  <meta name="keywords" content="Universe Labs, Digital Twins, XR, 3D Web, WebXR, Edge Computing, Local AI, Blockchain, Ho Chi Minh City">
+  <meta name="author" content="Universe Labs">
+  
+  <!-- SEO Open Graph -->
+  <meta property="og:title" content="Universe Labs | Spatial Digital Twins, XR & Edge R&D">
+  <meta property="og:description" content="Pioneering real-time 3D spatial twins and immersive WebXR interfaces, powered by edge computing R&D clusters.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://universelabs.com.vn">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="background">
-        <video autoplay muted loop playsinline id="myVideo">
-            <source src="public/videos/background.mp4" type="video/mp4">
-        </video>
+
+  <!-- Cyber Monitor Effect Overlays -->
+  <div class="monitor-effects">
+    <div class="monitor-scanlines"></div>
+    <div class="monitor-flicker"></div>
+    <div class="monitor-vignette"></div>
+    <div class="monitor-glare"></div>
+    <div class="monitor-static-bar monitor-static-bar-1"></div>
+    <div class="monitor-static-bar monitor-static-bar-2"></div>
+  </div>
+
+  <!-- Background Space Canvases -->
+  <canvas id="starfieldCanvas"></canvas>
+  <div id="threeCanvasContainer"></div>
+
+  <!-- Heads Up Display (HUD) Overlays -->
+  <div class="hud-overlay">
+    <div class="hud-corner hud-corner-tl"></div>
+    <div class="hud-corner hud-corner-tr"></div>
+    <div class="hud-corner hud-corner-bl"></div>
+    <div class="hud-corner hud-corner-br"></div>
+    <div class="hud-scanner"></div>
+    <div class="hud-grid-crosshair">SYS.TWIN // NODE.VNM.01 // 10.76°N, 106.66°E</div>
+  </div>
+
+  <!-- Interactive Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-dot" id="customCursorDot"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" id="navLogo">
+        <!-- SVG Planet Logo -->
+        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <radialGradient id="planetGrad" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#e0f7fc" />
+              <stop offset="40%" stop-color="#00b8d4" />
+              <stop offset="80%" stop-color="#004d40" />
+              <stop offset="100%" stop-color="#001a14" />
+            </radialGradient>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f0ff" />
+              <stop offset="50%" stop-color="#ffffff" />
+              <stop offset="100%" stop-color="#7f00ff" stop-opacity="0.2" />
+            </linearGradient>
+          </defs>
+          <g transform="rotate(-15 60 60)">
+            <path d="M 110,60 A 50,12 0 0,0 10,60" fill="none" stroke="url(#ringGrad)" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+            <circle cx="60" cy="60" r="30" fill="url(#planetGrad)" stroke="#00f0ff" stroke-width="0.5" />
+            <path d="M 33,50 C 45,53 75,53 87,50" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" />
+            <path d="M 30,60 C 45,64 75,64 90,60" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" />
+            <path d="M 33,70 C 45,75 75,75 87,70" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" />
+            <path d="M 40,54 H 80 C 83,54 85,56 85,59 V 63 C 85,66 83,68 80,68 H 68 C 66,68 64,66 60,66 C 56,66 54,68 52,68 H 40 C 37,68 35,66 35,63 V 59 C 35,56 37,54 40,54 Z" fill="#02090b" stroke="#00f0ff" stroke-width="2.5" filter="url(#neonGlow)" />
+            <path d="M 42,57 H 78 V 59 H 42 Z" fill="#ffffff" opacity="0.7" />
+            <circle cx="46" cy="62" r="1.5" fill="#00f0ff" />
+            <circle cx="74" cy="62" r="1.5" fill="#00f0ff" />
+            <path d="M 35,61 C 28,61 24,59 20,60" fill="none" stroke="#00f0ff" stroke-width="2" />
+            <path d="M 85,61 C 92,61 96,59 100,60" fill="none" stroke="#00f0ff" stroke-width="2" />
+            <path d="M 10,60 A 50,12 0 0,0 110,60" fill="none" stroke="url(#ringGrad)" stroke-width="4" stroke-linecap="round" filter="url(#neonGlow)" />
+          </g>
+        </svg>
+        <span class="brand-name">Universe Labs</span>
+      </a>
+      
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <div class="nav-links" id="navLinks">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#tech" class="nav-link">Capabilities</a>
+        <a href="#terminal" class="nav-link">Console</a>
+        <a href="#projects" class="nav-link">Deployments</a>
+        <a href="mailto:support@universelabs.com.vn" class="cta-nav">Connect</a>
+      </div>
     </div>
-    <header>
-        <div class="logo">
-            <img src="public/images/logo.svg" alt="Logo">
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="badge-container">
+          <span class="hero-badge"><span class="badge-dot"></span> Real-Time Spatial twins & WebXR</span>
         </div>
-    </header>
-    <main>
-        <h1>COMING SOON</h1>
-    </main>
+        <h1 class="hero-title glitch-text" data-text="UNIVERSE LABS">UNIVERSE LABS</h1>
+        <p class="hero-subtitle">
+          Pioneering the Next Dimension of <span class="highlight-typewriter" id="typewriter">3D Digital Twins</span>
+        </p>
+        <p class="hero-description">
+          We engineer real-time 3D digital twins and immersive XR interfaces, powered by localized Edge Computing R&D executing decentralized ledgers and agentic AI models.
+        </p>
+        <div class="hero-actions">
+          <a href="#tech" class="btn btn-primary" id="btnPrimary">
+            <span>Explore Orbit</span>
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+          <a href="mailto:support@universelabs.com.vn" class="btn btn-secondary" id="btnSecondary">
+            <span>Contact R&D</span>
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-indicator">
+      <a href="#tech">
+        <span class="mouse-icon">
+          <span class="wheel"></span>
+        </span>
+        <span class="scroll-text">Descend Orbit</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Capabilities Section -->
+  <section id="tech" class="tech-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Focus Areas</span>
+        <h2 class="section-title">Core Capabilities</h2>
+        <p class="section-subtitle">Forging the digital architecture of spatial twins and high-performance immersive tech.</p>
+      </div>
+      
+      <div class="tech-grid">
+        <!-- Card 1: Spatial Digital Twins -->
+        <div class="tech-card" id="cardTwins">
+          <div class="card-glow"></div>
+          <div class="card-icon-container">
+            <i data-lucide="eye" class="card-icon"></i>
+          </div>
+          <h3 class="card-title">Digital Twins</h3>
+          <p class="card-description">
+            Synchronizing physical IoT telemetry and geometries into real-time 3D digital twins. Enabling direct operational analytics and mapping inside browsers.
+          </p>
+          <ul class="card-list">
+            <li><i data-lucide="check"></i> Real-time Telemetry Sync</li>
+            <li><i data-lucide="check"></i> 3D Triangulation & Mapping</li>
+            <li><i data-lucide="check"></i> Dynamic CAD/BIM Rendering</li>
+          </ul>
+        </div>
+
+        <!-- Card 2: Immersive XR -->
+        <div class="tech-card" id="cardXR">
+          <div class="card-glow"></div>
+          <div class="card-icon-container">
+            <i data-lucide="binoculars" class="card-icon"></i>
+          </div>
+          <h3 class="card-title">Extended Reality</h3>
+          <p class="card-description">
+            Building cross-platform WebXR portals, custom VR/AR/MR apps, and spatial layout controllers for immersive industrial twins.
+          </p>
+          <ul class="card-list">
+            <li><i data-lucide="check"></i> WebXR Core & 3D Web UI</li>
+            <li><i data-lucide="check"></i> Gesture & Spatial Controls</li>
+            <li><i data-lucide="check"></i> Cross-Platform HMD Support</li>
+          </ul>
+        </div>
+
+        <!-- Card 3: Edge Computing -->
+        <div class="tech-card" id="cardEdge">
+          <div class="card-glow"></div>
+          <div class="card-icon-container">
+            <i data-lucide="network" class="card-icon"></i>
+          </div>
+          <h3 class="card-title">Edge Computing</h3>
+          <p class="card-description">
+            Deploying low-latency microservice meshes on localized hardware (ESP32/Jetson arrays) to process multi-sensor inputs closest to data generation.
+          </p>
+          <ul class="card-list">
+            <li><i data-lucide="check"></i> Multi-sensor Fusion Arrays</li>
+            <li><i data-lucide="check"></i> Hardware Accelerated Pipelines</li>
+            <li><i data-lucide="check"></i> Low-Latency Mesh Node Nodes</li>
+          </ul>
+        </div>
+
+        <!-- Card 4: AI & Ledger R&D -->
+        <div class="tech-card" id="cardRD">
+          <div class="card-glow"></div>
+          <div class="card-icon-container">
+            <i data-lucide="cpu" class="card-icon"></i>
+          </div>
+          <h3 class="card-title">Edge AI & Ledgers</h3>
+          <p class="card-description">
+            Researching and running edge-optimized AI agent state machines and distributed ledger blocks locally to automate and validate coordination.
+          </p>
+          <ul class="card-list">
+            <li><i data-lucide="check"></i> Local Agentic State Models</li>
+            <li><i data-lucide="check"></i> Offline Cryptographic Validation</li>
+            <li><i data-lucide="check"></i> Decentralized Identity Ledgers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Terminal Section -->
+  <section id="terminal" class="terminal-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Edge R&D Telemetry</span>
+        <h2 class="section-title">Console Telemetry</h2>
+        <p class="section-subtitle">Real-time status streams from local edge computing nodes running digital twin mesh routines.</p>
+      </div>
+
+      <div class="terminal-container" id="terminalContainer">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="terminal-title">universelabs-twin-telemetry.log</div>
+          <div class="terminal-actions">
+            <span class="terminal-badge"><span class="badge-pulse"></span> SYSTEM NOMINAL</span>
+          </div>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <!-- Live log streaming -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deployments Section -->
+  <section id="projects" class="projects-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Deployments</span>
+        <h2 class="section-title">Ecosystem Showcase</h2>
+        <p class="section-subtitle">Spatial digital twin nodes and edge computing structures running in our operational matrix.</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1: Spatial Digital Twin -->
+        <div class="project-card" id="projTwin">
+          <div class="project-card-glow"></div>
+          <div class="project-info">
+            <span class="project-tag">Core Focus // 3D Digital Twin</span>
+            <h3 class="project-name">TwinSync Core</h3>
+            <p class="project-desc">
+              Synchronizing physical spatial twins with high-resolution CAD/BIM model meshes, creating real-time telemetry overlays in browser space.
+            </p>
+          </div>
+          <!-- 3D CSS Wireframe Cube -->
+          <div class="project-3d-visual">
+            <div class="cube-3d">
+              <div class="cube-face face-front">TWIN</div>
+              <div class="cube-face face-back">3D</div>
+              <div class="cube-face face-right">SYNC</div>
+              <div class="cube-face face-left">NODE</div>
+              <div class="cube-face face-top">SYS</div>
+              <div class="cube-face face-bottom">CORE</div>
+            </div>
+          </div>
+          <div class="project-telemetry">
+            <span>ST-REF: v2.5.0-TWIN</span>
+            <span>FPS: 90 // Latency: 4.2ms</span>
+          </div>
+        </div>
+        
+        <!-- Project 2: WebXR Portal Core -->
+        <div class="project-card" id="projXR">
+          <div class="project-card-glow"></div>
+          <div class="project-info">
+            <span class="project-tag">Core Interface // Immersive XR</span>
+            <h3 class="project-name">WebXR Portal Core</h3>
+            <p class="project-desc">
+              Cross-device spatial translation layer providing hand-tracking gesture recognition and WebXR-based overlays for industrial headset configurations.
+            </p>
+          </div>
+          <!-- 3D CSS Wireframe Cube -->
+          <div class="project-3d-visual">
+            <div class="cube-3d">
+              <div class="cube-face face-front">XR</div>
+              <div class="cube-face face-back">AR</div>
+              <div class="cube-face face-right">PORT</div>
+              <div class="cube-face face-left">HMD</div>
+              <div class="cube-face face-top">WEB</div>
+              <div class="cube-face face-bottom">VIEW</div>
+            </div>
+          </div>
+          <div class="project-telemetry">
+            <span>XR-REF: v3.0.4-WEB</span>
+            <span>GESTURE: ACTIVE // 90HZ</span>
+          </div>
+        </div>
+        
+        <!-- Project 3: Edge Computing R&D Node Mesh -->
+        <div class="project-card" id="projEdge">
+          <div class="project-card-glow"></div>
+          <div class="project-info">
+            <span class="project-tag">Supporting Infrastructure // Edge R&D</span>
+            <h3 class="project-name">Edge Node Mesh</h3>
+            <p class="project-desc">
+              Low-latency hardware array processing R&D data blocks, executing distributed ledger checks and localized AI planning models at the edge.
+            </p>
+          </div>
+          <!-- 3D CSS Wireframe Cube -->
+          <div class="project-3d-visual">
+            <div class="cube-3d">
+              <div class="cube-face face-front">EDGE</div>
+              <div class="cube-face face-back">MESH</div>
+              <div class="cube-face face-right">AI</div>
+              <div class="cube-face face-left">LEDG</div>
+              <div class="cube-face face-top">R&D</div>
+              <div class="cube-face face-bottom">NODE</div>
+            </div>
+          </div>
+          <div class="project-telemetry">
+            <span>EN-REF: v1.1.2-R&D</span>
+            <span>LOAD: 12% // CONSENSUS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <svg class="footer-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+            <g transform="rotate(-15 60 60)">
+              <circle cx="60" cy="60" r="30" fill="#00f0ff" opacity="0.1"/>
+              <circle cx="60" cy="60" r="25" fill="#02090b" stroke="#00f0ff" stroke-width="1.5"/>
+              <path d="M 40,56 H 80 C 83,56 85,58 85,61 V 63 C 85,66 83,68 80,68 H 68 C 66,68 64,66 60,66 C 56,66 54,68 52,68 H 40 C 37,68 35,66 35,63 V 61 C 35,58 37,56 40,56 Z" fill="#02090b" stroke="#00f0ff" stroke-width="1.5"/>
+            </g>
+          </svg>
+          <span class="footer-brand">Universe Labs</span>
+        </div>
+        <p class="footer-tagline">Synthesizing spatial realities, real-time 3D twins, and low-latency edge networks.</p>
+        <p class="footer-meta" style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">
+          Founded: 15/12/2022 | R&D Center: Ho Chi Minh City
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">Home</a>
+        <a href="#tech">Capabilities</a>
+        <a href="mailto:support@universelabs.com.vn">support@universelabs.com.vn</a>
+        <a href="https://universelabs.com.vn">universelabs.com.vn</a>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright &copy; 2026 Universe Labs. All rights reserved.</p>
+        <p class="telemetry-v">SYSTEM STATUS: NOMINAL | V1.3.0-TWIN</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="app.js"></script>
 </body>
 </html>

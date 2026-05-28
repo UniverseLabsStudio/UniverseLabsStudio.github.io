@@ -453,12 +453,6 @@ ul {
 .logo-svg {
   width: 40px;
   height: 40px;
-  transition: transform var(--transition-smooth);
-  animation: logoPulse 4s ease-in-out infinite;
-}
-
-.nav-logo:hover .logo-svg {
-  animation: logoGlitch 0.3s steps(2) infinite;
 }
 
 .brand-name {
@@ -468,6 +462,42 @@ ul {
   color: var(--text-primary);
   letter-spacing: 2px;
   text-transform: uppercase;
+  position: relative;
+}
+
+.brand-name::before,
+.brand-name::after {
+  content: 'Universe Labs';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.brand-name::before {
+  color: var(--primary);
+  z-index: -1;
+  text-shadow: -1px 0 var(--primary);
+}
+
+.brand-name::after {
+  color: var(--secondary);
+  z-index: -2;
+  text-shadow: 1px 0 var(--secondary);
+}
+
+.brand-name.glitch-active::before {
+  opacity: 1;
+  animation: brandGlitch1 0.3s steps(2) infinite;
+}
+
+.brand-name.glitch-active::after {
+  opacity: 1;
+  animation: brandGlitch2 0.3s steps(2) infinite;
 }
 
 .nav-toggle {
@@ -1724,19 +1754,21 @@ a.contact-val:hover {
   }
 }
 
-/* Animations Keyframes for Logo Pulse and Glitch */
-@keyframes logoPulse {
-  0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 2px rgba(0, 240, 255, 0.15)); }
-  50% { transform: scale(1.04) rotate(-3deg); filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.45)); }
+/* Animations Keyframes for Brand Name Glitch */
+@keyframes brandGlitch1 {
+  0% { transform: translate(-2px, -1px); clip-path: inset(0 0 70% 0); }
+  25% { transform: translate(1px, 2px); clip-path: inset(40% 0 30% 0); }
+  50% { transform: translate(-1px, -2px); clip-path: inset(20% 0 60% 0); }
+  75% { transform: translate(2px, 1px); clip-path: inset(60% 0 10% 0); }
+  100% { transform: translate(0, 0); clip-path: inset(0); }
 }
 
-@keyframes logoGlitch {
-  0% { transform: translate(0, 0) skew(0deg); filter: hue-rotate(0deg); }
-  20% { transform: translate(-2px, 1px) skew(3deg); filter: hue-rotate(60deg) drop-shadow(0 0 4px var(--primary)); }
-  40% { transform: translate(1px, -2px) skew(-3deg); filter: hue-rotate(120deg) drop-shadow(0 0 4px var(--secondary)); }
-  60% { transform: translate(-1px, 2px) skew(2deg); filter: hue-rotate(180deg) drop-shadow(0 0 4px var(--primary)); }
-  80% { transform: translate(2px, -1px) skew(-2deg); filter: hue-rotate(240deg) drop-shadow(0 0 4px var(--secondary)); }
-  100% { transform: translate(0, 0) skew(0deg); }
+@keyframes brandGlitch2 {
+  0% { transform: translate(2px, 1px); clip-path: inset(60% 0 10% 0); }
+  25% { transform: translate(-1px, -2px); clip-path: inset(10% 0 70% 0); }
+  50% { transform: translate(2px, -1px); clip-path: inset(50% 0 20% 0); }
+  75% { transform: translate(-2px, 2px); clip-path: inset(30% 0 40% 0); }
+  100% { transform: translate(0, 0); clip-path: inset(0); }
 }
 
 .telemetry-bar-title {

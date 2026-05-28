@@ -8,6 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     window.lucide.createIcons();
   }
+  // Periodic brand name text shiver glitch animation
+  const brandNameEl = document.querySelector('.brand-name');
+  if (brandNameEl) {
+    // Initial shiver on page load
+    setTimeout(() => {
+      brandNameEl.classList.add('glitch-active');
+      setTimeout(() => brandNameEl.classList.remove('glitch-active'), 500);
+    }, 1500);
+
+    // Repeated triggers
+    setInterval(() => {
+      brandNameEl.classList.add('glitch-active');
+      setTimeout(() => {
+        brandNameEl.classList.remove('glitch-active');
+      }, 500);
+    }, 6000);
+  }
 
   // Global mouse coordinates
   const mouse = { x: 0, y: 0, targetX: 0, targetY: 0, normX: 0, normY: 0 };

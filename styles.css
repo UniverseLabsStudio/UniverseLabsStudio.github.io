@@ -266,6 +266,7 @@ ul {
 
 /* Custom Tech Cursor */
 .custom-cursor {
+  display: none;
   width: 24px;
   height: 24px;
   border: 1px solid var(--primary);
@@ -283,6 +284,7 @@ ul {
 }
 
 .custom-cursor-dot {
+  display: none;
   width: 4px;
   height: 4px;
   background-color: var(--secondary);
@@ -301,9 +303,13 @@ ul {
   background-color: rgba(127, 0, 255, 0.05);
 }
 
-@media (pointer: fine) {
+@media (pointer: fine) and (min-width: 769px) {
   body { cursor: none; }
   a, button, .tech-card, .project-card, .cta-nav { cursor: none; }
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: block;
+  }
 }
 
 /* ==========================================================================
@@ -1959,6 +1965,9 @@ a.contact-val:hover {
   .hud-warning-decals {
     display: none;
   }
+  .hud-grid-crosshair {
+    display: none !important;
+  }
   .hud-split-layout {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -1972,6 +1981,25 @@ a.contact-val:hover {
   }
   .hud-timeline-line {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  .nav-container {
+    padding: 0 20px;
+  }
+  .hero-container-asymmetric {
+    padding: 100px 20px 20px 20px;
+  }
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
   }
 }
 

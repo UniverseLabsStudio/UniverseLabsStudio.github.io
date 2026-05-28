@@ -24,6 +24,17 @@
 </head>
 <body>
 
+  <!-- Iron Man HUD Cockpit Overlays -->
+  <div class="hud-cockpit-curvature"></div>
+  <div class="hud-scanner-arcs"></div>
+  <div class="hud-warning-decals">
+    <div class="decal-warning decal-tl">SYS.LOCK // ONLINE</div>
+    <div class="decal-warning decal-tr">GRID.NODE // VNM.01</div>
+    <div class="decal-warning decal-bl">CALIBRATION // NOMINAL</div>
+    <div class="decal-warning decal-br">MATRIX // EST.2022</div>
+  </div>
+
+
   <!-- Cyber Monitor Effect Overlays -->
   <div class="monitor-effects">
     <div class="monitor-scanlines"></div>
@@ -45,7 +56,7 @@
     <div class="hud-corner hud-corner-bl"></div>
     <div class="hud-corner hud-corner-br"></div>
     <div class="hud-scanner"></div>
-    <div class="hud-grid-crosshair">SYS.TWIN // NODE.VNM.01 // 10.76°N, 106.66°E</div>
+    <div class="hud-grid-crosshair">SYS.HUD // METAVERSE ENGINE // VN.2022</div>
   </div>
 
   <!-- Interactive Custom Cursor -->
@@ -104,9 +115,12 @@
       
       <div class="nav-links" id="navLinks">
         <a href="#hero" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
         <a href="#tech" class="nav-link">Capabilities</a>
+        <a href="#projects" class="nav-link">Divisions</a>
+        <a href="#operations" class="nav-link">Operations</a>
+        <a href="#strategy" class="nav-link">Strategy</a>
         <a href="#terminal" class="nav-link">Console</a>
-        <a href="#projects" class="nav-link">Deployments</a>
         <a href="mailto:support@universelabs.com.vn" class="cta-nav">Connect</a>
       </div>
     </div>
@@ -114,33 +128,58 @@
 
   <!-- Hero Section -->
   <section id="hero" class="hero-section">
-    <div class="container hero-container">
-      <div class="hero-content">
+    <div class="container hero-container-asymmetric">
+      <div class="hero-content-left">
         <div class="badge-container">
-          <span class="hero-badge"><span class="badge-dot"></span> Real-Time Spatial twins & WebXR</span>
+          <span class="hero-badge"><span class="badge-dot"></span> Next-Gen Tech Ecosystem</span>
         </div>
         <h1 class="hero-title glitch-text" data-text="UNIVERSE LABS">UNIVERSE LABS</h1>
         <p class="hero-subtitle">
-          Pioneering the Next Dimension of <span class="highlight-typewriter" id="typewriter">3D Digital Twins</span>
+          Merging Digital Gaming, <span class="highlight-typewriter" id="typewriter">Artificial Intelligence</span> & VR
         </p>
         <p class="hero-description">
-          We engineer real-time 3D digital twins and immersive XR interfaces, powered by localized Edge Computing R&D executing decentralized ledgers and agentic AI models.
+          We build interactive digital game ecosystems, custom virtual worlds, and AI-driven cinematics to redefine global entertainment and Web3 digital commerce.
         </p>
         <div class="hero-actions">
-          <a href="#tech" class="btn btn-primary" id="btnPrimary">
+          <a href="#about" class="btn btn-primary" id="btnPrimary">
             <span>Explore Orbit</span>
             <i data-lucide="arrow-up-right"></i>
           </a>
           <a href="mailto:support@universelabs.com.vn" class="btn btn-secondary" id="btnSecondary">
-            <span>Contact R&D</span>
+            <span>Contact Studio</span>
             <i data-lucide="mail"></i>
           </a>
+        </div>
+      </div>
+      
+      <div class="hero-telemetry-right">
+        <div class="hud-frame-header">
+          <span class="hud-sub-label">R&D CORE STREAM</span>
+          <h4 style="font-family: var(--font-heading); font-size: 0.9rem; color: #fff; margin: 4px 0; text-transform: uppercase;">Cockpit Telemetry</h4>
+        </div>
+        <div class="hero-stats-mini">
+          <div class="mini-stat-item">
+            <span class="mini-stat-val">3D</span>
+            <span class="mini-stat-lbl">SPATIAL TWINS</span>
+          </div>
+          <div class="mini-stat-item">
+            <span class="mini-stat-val">AI</span>
+            <span class="mini-stat-lbl">NPC CORE</span>
+          </div>
+          <div class="mini-stat-item">
+            <span class="mini-stat-val">VFX</span>
+            <span class="mini-stat-lbl">RENDER ENGINE</span>
+          </div>
+        </div>
+        <div class="hud-frame-footer">
+          <span class="hud-coordinate" style="color: var(--primary);">LATENCY // 4.2MS</span>
+          <span class="hud-pulse-tag"><span class="badge-pulse"></span> ONLINE</span>
         </div>
       </div>
     </div>
     
     <div class="scroll-indicator">
-      <a href="#tech">
+      <a href="#about">
         <span class="mouse-icon">
           <span class="wheel"></span>
         </span>
@@ -149,89 +188,378 @@
     </div>
   </section>
 
-  <!-- Capabilities Section -->
-  <section id="tech" class="tech-section">
+  <!-- About Us Section -->
+  <section id="about" class="tech-section" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 100px;">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-tag">Focus Areas</span>
+        <span class="section-tag">01 // Company Profile</span>
+        <h2 class="section-title">Corporate Overview</h2>
+        <p class="section-subtitle">Forging interactive tech ecosystems connecting games, artificial intelligence, and visual effects.</p>
+      </div>
+
+      <div class="hud-split-layout">
+        <div class="orbit-details-panel-horizontal">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <div class="hud-frame-header">
+            <span class="hud-sub-label">ESTABLISHED 2022</span>
+            <h3 class="hud-node-title">Universe Labs Joint Stock Company</h3>
+            <div class="hud-coordinate">DEPL.NODE // INCEPTION</div>
+          </div>
+          <div class="hud-frame-body">
+            <p style="font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary);">
+              Universe Labs was founded in 2022 with the vision of building a cutting-edge digital entertainment ecosystem that bridges gaming, AI, and virtual reality. Throughout our journey, we have constantly innovated and applied state-of-the-art tech to create engaging games, creative digital content, and breakthrough AI-driven products. Starting as a small group of passionate engineers and artists, we have grown into a professional, multi-disciplinary team with multiple projects embraced by global gamers and partners.
+            </p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="orbit-details-panel-horizontal" style="padding: 24px;">
+            <div class="hud-target-lock">[+] LOCK</div>
+            <span class="hud-sub-label" style="color: var(--primary);">THE VISION</span>
+            <p style="font-size: 0.88rem; line-height: 1.5; color: var(--text-secondary);">
+              To become a leading entertainment technology group globally, pioneering in Metaverse games, AI-driven gameplay, cinematic VFX, and immersive virtual reality portals.
+            </p>
+          </div>
+          <div class="orbit-details-panel-horizontal" style="padding: 24px;">
+            <div class="hud-target-lock">[+] LOCK</div>
+            <span class="hud-sub-label" style="color: var(--primary);">THE MISSION</span>
+            <p style="font-size: 0.88rem; line-height: 1.5; color: var(--text-secondary);">
+              To deliver ultimate digital experiences to global users through interactive games, dynamic virtual worlds, and AI post-production pipelines combining tech and artistic brilliance.
+            </p>
+          </div>
+          <div class="orbit-details-panel-horizontal" style="padding: 24px;">
+            <div class="hud-target-lock">[+] LOCK</div>
+            <span class="hud-sub-label" style="color: var(--primary);">CORE VALUES</span>
+            <p style="font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px;">
+              - Boundless Creativity <br>
+              - Tech Leadership <br>
+              - User-Centric Designs <br>
+              - Transparency & Sustainable Innovation
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lanyue-inspired visual timeline -->
+      <div class="hud-timeline-wrapper">
+        <h4 class="hud-timeline-heading">Operational Growth Matrix</h4>
+        <div class="hud-timeline-container">
+          <!-- Line overlay -->
+          <div class="hud-timeline-line"></div>
+          
+          <div class="hud-timeline-node">
+            <div class="hud-timeline-marker">
+              <span></span>
+            </div>
+            <span class="hud-sub-label">PHASE 01 // 2022</span>
+            <h5 class="hud-timeline-title">Foundation</h5>
+            <p class="hud-timeline-desc">Company established; core games studio & initial VR frameworks launched.</p>
+          </div>
+
+          <div class="hud-timeline-node">
+            <div class="hud-timeline-marker secondary">
+              <span></span>
+            </div>
+            <span class="hud-sub-label">PHASE 02 // 2023 - 2024</span>
+            <h5 class="hud-timeline-title">Expansion & R&D</h5>
+            <p class="hud-timeline-desc">Team expansion; integration of local AI logic & Web3 market protocols.</p>
+          </div>
+
+          <div class="hud-timeline-node">
+            <div class="hud-timeline-marker">
+              <span></span>
+            </div>
+            <span class="hud-sub-label">PHASE 03 // 2025 - 2030</span>
+            <h5 class="hud-timeline-title">Metaverse Era</h5>
+            <p class="hud-timeline-desc">Full metaverse launch, AI-first game logic, and automated VFX cinematography.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Section -->
+  <section id="tech" class="tech-section" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 100px;">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">02 // Operational Focus</span>
         <h2 class="section-title">Core Capabilities</h2>
-        <p class="section-subtitle">Forging the digital architecture of spatial twins and high-performance immersive tech.</p>
+        <p class="section-subtitle">Forging the digital architecture of high-performance interactive software.</p>
       </div>
       
       <div class="tech-grid">
-        <!-- Card 1: Spatial Digital Twins -->
+        <!-- Card 1: Game Development -->
         <div class="tech-card" id="cardTwins">
+          <div class="hud-target-lock">[+] LOCK</div>
           <div class="card-glow"></div>
           <div class="card-icon-container">
-            <i data-lucide="eye" class="card-icon"></i>
+            <i data-lucide="gamepad-2" class="card-icon"></i>
           </div>
-          <h3 class="card-title">Digital Twins</h3>
+          <h3 class="card-title">Game Development</h3>
           <p class="card-description">
-            Synchronizing physical IoT telemetry and geometries into real-time 3D digital twins. Enabling direct operational analytics and mapping inside browsers.
+            Building immersive 2D, 3D, Web3, VR/AR, and Blockchain-enabled games with high-fidelity visuals and rich interactive environments.
           </p>
           <ul class="card-list">
-            <li><i data-lucide="check"></i> Real-time Telemetry Sync</li>
-            <li><i data-lucide="check"></i> 3D Triangulation & Mapping</li>
-            <li><i data-lucide="check"></i> Dynamic CAD/BIM Rendering</li>
+            <li><i data-lucide="check"></i> 2D & 3D Interactive Design</li>
+            <li><i data-lucide="check"></i> Blockchain & NFT Integration</li>
+            <li><i data-lucide="check"></i> Immersive Metaverse Portals</li>
           </ul>
         </div>
 
-        <!-- Card 2: Immersive XR -->
+        <!-- Card 2: AI Integration -->
         <div class="tech-card" id="cardXR">
+          <div class="hud-target-lock">[+] LOCK</div>
           <div class="card-glow"></div>
           <div class="card-icon-container">
-            <i data-lucide="binoculars" class="card-icon"></i>
+            <i data-lucide="brain" class="card-icon"></i>
           </div>
-          <h3 class="card-title">Extended Reality</h3>
+          <h3 class="card-title">AI Integration</h3>
           <p class="card-description">
-            Building cross-platform WebXR portals, custom VR/AR/MR apps, and spatial layout controllers for immersive industrial twins.
+            Integrating machine learning algorithms directly into gameplay loops to establish cognitive NPCs, player self-learning, and automated tuning.
           </p>
           <ul class="card-list">
-            <li><i data-lucide="check"></i> WebXR Core & 3D Web UI</li>
-            <li><i data-lucide="check"></i> Gesture & Spatial Controls</li>
-            <li><i data-lucide="check"></i> Cross-Platform HMD Support</li>
+            <li><i data-lucide="check"></i> Cognitive NPC Agents</li>
+            <li><i data-lucide="check"></i> Player Behavior Self-Learning</li>
+            <li><i data-lucide="check"></i> Real-Time Content Optimization</li>
           </ul>
         </div>
 
-        <!-- Card 3: Edge Computing -->
+        <!-- Card 3: VFX & Content Studio -->
         <div class="tech-card" id="cardEdge">
+          <div class="hud-target-lock">[+] LOCK</div>
           <div class="card-glow"></div>
           <div class="card-icon-container">
-            <i data-lucide="network" class="card-icon"></i>
+            <i data-lucide="clapperboard" class="card-icon"></i>
           </div>
-          <h3 class="card-title">Edge Computing</h3>
+          <h3 class="card-title">VFX & Content Studio</h3>
           <p class="card-description">
-            Deploying low-latency microservice meshes on localized hardware (ESP32/Jetson arrays) to process multi-sensor inputs closest to data generation.
+            Producing state-of-the-art AI-driven video generators, automated storytelling frameworks, and advanced visual effects for film and media.
           </p>
           <ul class="card-list">
-            <li><i data-lucide="check"></i> Multi-sensor Fusion Arrays</li>
-            <li><i data-lucide="check"></i> Hardware Accelerated Pipelines</li>
-            <li><i data-lucide="check"></i> Low-Latency Mesh Node Nodes</li>
+            <li><i data-lucide="check"></i> AI Video & Film Generation</li>
+            <li><i data-lucide="check"></i> AI-Generated Narrative Flows</li>
+            <li><i data-lucide="check"></i> High-End Post-Production VFX</li>
           </ul>
         </div>
 
-        <!-- Card 4: AI & Ledger R&D -->
+        <!-- Card 4: Web3 & Tokenomics -->
         <div class="tech-card" id="cardRD">
+          <div class="hud-target-lock">[+] LOCK</div>
           <div class="card-glow"></div>
           <div class="card-icon-container">
-            <i data-lucide="cpu" class="card-icon"></i>
+            <i data-lucide="wallet-2" class="card-icon"></i>
           </div>
-          <h3 class="card-title">Edge AI & Ledgers</h3>
+          <h3 class="card-title">Web3 & Tokenomics</h3>
           <p class="card-description">
-            Researching and running edge-optimized AI agent state machines and distributed ledger blocks locally to automate and validate coordination.
+            Deploying secure tokenomics systems, custom digital marketplace nodes, and smart contract frameworks for in-game item transactions.
           </p>
           <ul class="card-list">
-            <li><i data-lucide="check"></i> Local Agentic State Models</li>
-            <li><i data-lucide="check"></i> Offline Cryptographic Validation</li>
-            <li><i data-lucide="check"></i> Decentralized Identity Ledgers</li>
+            <li><i data-lucide="check"></i> In-Game Digital Economies</li>
+            <li><i data-lucide="check"></i> NFT Smart Token Architectures</li>
+            <li><i data-lucide="check"></i> Open-Market Exchange Nodes</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Orbit Matrix Section (Futuristic 3D Horizontal Carousel & Statistics) -->
+  <section id="projects" class="projects-section orbit-carousel-section" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 100px;">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">03 // Interactive Matrix</span>
+        <h2 class="section-title">Engineering Divisions</h2>
+        <p class="section-subtitle">Interact with our primary production hubs using the horizontal 3D cockpit carousel.</p>
+      </div>
+
+      <div class="orbit-matrix-horizontal-grid">
+        <!-- SpaceX-inspired horizontal selector tabs at the top -->
+        <div class="orbit-selectors-horizontal">
+          <button class="selector-tab active" data-index="0">
+            <span class="selector-num">01</span>
+            <span class="selector-label">Game Studio</span>
+          </button>
+          <button class="selector-tab" data-index="1">
+            <span class="selector-num">02</span>
+            <span class="selector-label">AI R&D Lab</span>
+          </button>
+          <button class="selector-tab" data-index="2">
+            <span class="selector-num">03</span>
+            <span class="selector-label">VFX Studio</span>
+          </button>
+          <button class="selector-tab" data-index="3">
+            <span class="selector-num">04</span>
+            <span class="selector-label">Web3 Core</span>
+          </button>
+        </div>
+
+        <!-- Middle Content Split (Left: Details Text, Right: 3D Viewport) -->
+        <div class="orbit-middle-content">
+          <!-- Lanyue-inspired HUD details (left column) -->
+          <div class="orbit-details-panel-horizontal" id="orbitDetailsPanel">
+            <div class="hud-frame-header">
+              <span class="hud-sub-label" id="panelSubLabel">METAVERSE & INTERACTIVE GAME ENGINE</span>
+              <h3 class="hud-node-title" id="panelNodeTitle">Game Development Studio</h3>
+              <div class="hud-coordinate" id="panelCoordinate">DEPL-MATRIX: 01.GAME</div>
+            </div>
+            
+            <div class="hud-frame-body">
+              <p class="hud-description" id="panelDescription">
+                Engineering next-generation 2D, 3D, VR/AR, and Blockchain games. Harnessing agile flows to deliver immersive, high-fidelity player experiences.
+              </p>
+            </div>
+            
+            <div class="hud-frame-footer">
+              <span class="hud-hash-tag" id="panelHashTag">DEPL-MAT: v3.1.0-GAME</span>
+              <span class="hud-pulse-tag"><span class="badge-pulse"></span> STUDIO ACTIVE</span>
+            </div>
+          </div>
+
+          <!-- 3D Interactive Carousel Container (right column) -->
+          <div class="orbit-canvas-container-horizontal" id="orbitCanvasContainer">
+            <!-- Three.js Canvas will be initialized here -->
+            <div class="orbit-nav-arrows-horizontal">
+              <button class="arrow-btn btn-left" id="orbitPrev" aria-label="Previous node">
+                <i data-lucide="chevron-left"></i>
+              </button>
+              <button class="arrow-btn btn-right" id="orbitNext" aria-label="Next node">
+                <i data-lucide="chevron-right"></i>
+              </button>
+            </div>
+            <!-- Drag instructions HUD overlay -->
+            <div class="orbit-canvas-hud-horizontal">
+              <span class="hud-stat-label">DRAG HORIZONTALLY TO ROTATE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orvion Space statistics row at the bottom -->
+        <div class="orvion-stats-grid-horizontal">
+          <div class="stat-box-horizontal">
+            <span class="stat-num-horizontal" id="statVal1">2D / 3D</span>
+            <span class="stat-lbl-horizontal" id="statLabel1">GRAPHICS CAPABILITY</span>
+          </div>
+          <div class="stat-box-horizontal">
+            <span class="stat-num-horizontal" id="statVal2">CROSS</span>
+            <span class="stat-lbl-horizontal" id="statLabel2">PLATFORM LAUNCH</span>
+          </div>
+          <div class="stat-box-horizontal">
+            <span class="stat-num-horizontal" id="statVal3">Metaverse</span>
+            <span class="stat-lbl-horizontal" id="statLabel3">FOCUS MESH</span>
+          </div>
+          <div class="stat-box-horizontal">
+            <span class="stat-num-horizontal" id="statVal4">ACTIVE</span>
+            <span class="stat-lbl-horizontal" id="statLabel4">STUDIO STATUS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operations & Structure Section -->
+  <section id="operations" class="tech-section" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 100px;">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">04 // Business Architecture</span>
+        <h2 class="section-title">Operations & HR Grid</h2>
+        <p class="section-subtitle">Analyzing our specialized business structure and cross-functional administrative divisions.</p>
+      </div>
+
+      <div class="hud-split-layout">
+        <!-- Left: Operations quadrants -->
+        <div class="orbit-details-panel-horizontal">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <div class="hud-frame-header">
+            <span class="hud-sub-label">CORE QUADRANTS</span>
+            <h3 class="hud-node-title">Operational Flow</h3>
+            <div class="hud-coordinate">SYS.FLOW // PROD.BIZ.SERV.COMM</div>
+          </div>
+          <div class="hud-frame-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="border: 1px dashed rgba(255,255,255,0.06); padding: 16px; background: rgba(0,0,0,0.2);">
+              <span class="hud-sub-label" style="color: var(--primary);">PRODUCTION</span>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-top: 4px;">Establishing game development and AI studios, utilizing agile processes to accelerate cycles.</p>
+            </div>
+            <div style="border: 1px dashed rgba(255,255,255,0.06); padding: 16px; background: rgba(0,0,0,0.2);">
+              <span class="hud-sub-label" style="color: var(--primary);">BUSINESS</span>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-top: 4px;">Publishing indie games, licensing technology tools, and collaborating with global publishers.</p>
+            </div>
+            <div style="border: 1px dashed rgba(255,255,255,0.06); padding: 16px; background: rgba(0,0,0,0.2);">
+              <span class="hud-sub-label" style="color: var(--primary);">SERVICES</span>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-top: 4px;">Game programming, VFX, AI video generation, and virtual reality metaverse spaces for brands.</p>
+            </div>
+            <div style="border: 1px dashed rgba(255,255,255,0.06); padding: 16px; background: rgba(0,0,0,0.2);">
+              <span class="hud-sub-label" style="color: var(--primary);">COMMERCE</span>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-top: 4px;">Launching digital NFT items, trading assets, brand placement in game assets, and VR event hubs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: HR & Divisions list -->
+        <div class="orbit-details-panel-horizontal">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <div class="hud-frame-header">
+            <span class="hud-sub-label">CROSS-FUNCTIONAL TEAMS</span>
+            <h3 class="hud-node-title">Administrative Structure</h3>
+            <div class="hud-coordinate">DEPL.GROUPS // TEAMS</div>
+          </div>
+          <div class="hud-frame-body">
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 16px;">
+              We deploy lean, cross-functional project teams. Culture thrives on creativity, continuous learning, and multi-disciplinary engagement.
+            </p>
+            <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase;">
+              <li><i data-lucide="check" style="width: 12px; height: 12px; color: var(--primary); display: inline; margin-right: 6px;"></i> Game Development</li>
+              <li><i data-lucide="check" style="width: 12px; height: 12px; color: var(--primary); display: inline; margin-right: 6px;"></i> AI & R&D Lab</li>
+              <li><i data-lucide="check" style="width: 12px; height: 12px; color: var(--primary); display: inline; margin-right: 6px;"></i> VFX & Video AI</li>
+              <li><i data-lucide="check" style="width: 12px; height: 12px; color: var(--primary); display: inline; margin-right: 6px;"></i> Partnerships</li>
+              <li><i data-lucide="check" style="width: 12px; height: 12px; color: var(--primary); display: inline; margin-right: 6px;"></i> Marketing & Comm</li>
+              <li><i data-lucide="check" style="width: 12px; height: 12px; color: var(--primary); display: inline; margin-right: 6px;"></i> HR / Admin</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategy Section -->
+  <section id="strategy" class="tech-section" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 100px;">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">05 // Future Goals</span>
+        <h2 class="section-title">Strategic Roadmap</h2>
+        <p class="section-subtitle">Defining the roadmap and execution path for the 2025–2030 timeline.</p>
+      </div>
+
+      <div class="hud-four-col-grid">
+        <div class="orbit-details-panel-horizontal" style="padding: 24px; justify-content: flex-start; gap: 12px;">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <span class="hud-sub-label">GOAL 01</span>
+          <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff; text-transform: uppercase;">Global Scaling</h4>
+          <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary);">Expanding scale globally via international partnerships and franchise licensing of games.</p>
+        </div>
+        <div class="orbit-details-panel-horizontal" style="padding: 24px; justify-content: flex-start; gap: 12px;">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <span class="hud-sub-label">GOAL 02</span>
+          <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff; text-transform: uppercase;">Metaverse Platform</h4>
+          <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary);">Releasing a proprietary Metaverse virtual space integrated with AI, Web3, and VFX.</p>
+        </div>
+        <div class="orbit-details-panel-horizontal" style="padding: 24px; justify-content: flex-start; gap: 12px;">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <span class="hud-sub-label">GOAL 03</span>
+          <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff; text-transform: uppercase;">AI-First Gaming</h4>
+          <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary);">Developing self-adaptive game experiences that upgrade content based on user gameplay metrics.</p>
+        </div>
+        <div class="orbit-details-panel-horizontal" style="padding: 24px; justify-content: flex-start; gap: 12px;">
+          <div class="hud-target-lock">[+] LOCK</div>
+          <span class="hud-sub-label">GOAL 04</span>
+          <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #fff; text-transform: uppercase;">Cinema Automation</h4>
+          <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary);">Applying machine learning models to film production to automate editing and visual post-production.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Interactive Terminal Section -->
-  <section id="terminal" class="terminal-section">
+  <section id="terminal" class="terminal-section" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 100px;">
     <div class="container">
       <div class="section-header text-center">
         <span class="section-tag">Edge R&D Telemetry</span>
@@ -246,9 +574,9 @@
             <span class="dot dot-yellow"></span>
             <span class="dot dot-green"></span>
           </div>
-          <div class="terminal-title">universelabs-twin-telemetry.log</div>
+          <div class="terminal-title">universelabs-engine-telemetry.log</div>
           <div class="terminal-actions">
-            <span class="terminal-badge"><span class="badge-pulse"></span> SYSTEM NOMINAL</span>
+            <span class="terminal-badge"><span class="badge-pulse"></span> ENGINE NOMINAL</span>
           </div>
         </div>
         <div class="terminal-body" id="terminalBody">
@@ -258,106 +586,13 @@
     </div>
   </section>
 
-  <!-- Deployments Section -->
-  <section id="projects" class="projects-section">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-tag">Deployments</span>
-        <h2 class="section-title">Ecosystem Showcase</h2>
-        <p class="section-subtitle">Spatial digital twin nodes and edge computing structures running in our operational matrix.</p>
-      </div>
-
-      <div class="projects-grid">
-        <!-- Project 1: Spatial Digital Twin -->
-        <div class="project-card" id="projTwin">
-          <div class="project-card-glow"></div>
-          <div class="project-info">
-            <span class="project-tag">Core Focus // 3D Digital Twin</span>
-            <h3 class="project-name">TwinSync Core</h3>
-            <p class="project-desc">
-              Synchronizing physical spatial twins with high-resolution CAD/BIM model meshes, creating real-time telemetry overlays in browser space.
-            </p>
-          </div>
-          <!-- 3D CSS Wireframe Cube -->
-          <div class="project-3d-visual">
-            <div class="cube-3d">
-              <div class="cube-face face-front">TWIN</div>
-              <div class="cube-face face-back">3D</div>
-              <div class="cube-face face-right">SYNC</div>
-              <div class="cube-face face-left">NODE</div>
-              <div class="cube-face face-top">SYS</div>
-              <div class="cube-face face-bottom">CORE</div>
-            </div>
-          </div>
-          <div class="project-telemetry">
-            <span>ST-REF: v2.5.0-TWIN</span>
-            <span>FPS: 90 // Latency: 4.2ms</span>
-          </div>
-        </div>
-        
-        <!-- Project 2: WebXR Portal Core -->
-        <div class="project-card" id="projXR">
-          <div class="project-card-glow"></div>
-          <div class="project-info">
-            <span class="project-tag">Core Interface // Immersive XR</span>
-            <h3 class="project-name">WebXR Portal Core</h3>
-            <p class="project-desc">
-              Cross-device spatial translation layer providing hand-tracking gesture recognition and WebXR-based overlays for industrial headset configurations.
-            </p>
-          </div>
-          <!-- 3D CSS Wireframe Cube -->
-          <div class="project-3d-visual">
-            <div class="cube-3d">
-              <div class="cube-face face-front">XR</div>
-              <div class="cube-face face-back">AR</div>
-              <div class="cube-face face-right">PORT</div>
-              <div class="cube-face face-left">HMD</div>
-              <div class="cube-face face-top">WEB</div>
-              <div class="cube-face face-bottom">VIEW</div>
-            </div>
-          </div>
-          <div class="project-telemetry">
-            <span>XR-REF: v3.0.4-WEB</span>
-            <span>GESTURE: ACTIVE // 90HZ</span>
-          </div>
-        </div>
-        
-        <!-- Project 3: Edge Computing R&D Node Mesh -->
-        <div class="project-card" id="projEdge">
-          <div class="project-card-glow"></div>
-          <div class="project-info">
-            <span class="project-tag">Supporting Infrastructure // Edge R&D</span>
-            <h3 class="project-name">Edge Node Mesh</h3>
-            <p class="project-desc">
-              Low-latency hardware array processing R&D data blocks, executing distributed ledger checks and localized AI planning models at the edge.
-            </p>
-          </div>
-          <!-- 3D CSS Wireframe Cube -->
-          <div class="project-3d-visual">
-            <div class="cube-3d">
-              <div class="cube-face face-front">EDGE</div>
-              <div class="cube-face face-back">MESH</div>
-              <div class="cube-face face-right">AI</div>
-              <div class="cube-face face-left">LEDG</div>
-              <div class="cube-face face-top">R&D</div>
-              <div class="cube-face face-bottom">NODE</div>
-            </div>
-          </div>
-          <div class="project-telemetry">
-            <span>EN-REF: v1.1.2-R&D</span>
-            <span>LOAD: 12% // CONSENSUS</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="footer">
     <div class="container footer-container">
-      <div class="footer-left">
+      <!-- Col 1: Branding -->
+      <div class="footer-brand-section">
         <div class="footer-logo">
-          <svg class="footer-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+          <svg class="footer-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
             <g transform="rotate(-15 60 60)">
               <circle cx="60" cy="60" r="30" fill="#00f0ff" opacity="0.1"/>
               <circle cx="60" cy="60" r="25" fill="#02090b" stroke="#00f0ff" stroke-width="1.5"/>
@@ -367,16 +602,42 @@
           <span class="footer-brand">Universe Labs</span>
         </div>
         <p class="footer-tagline">Synthesizing spatial realities, real-time 3D twins, and low-latency edge networks.</p>
-        <p class="footer-meta" style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">
-          Founded: 15/12/2022 | R&D Center: Ho Chi Minh City
-        </p>
       </div>
-      <div class="footer-links">
-        <a href="#hero">Home</a>
-        <a href="#tech">Capabilities</a>
-        <a href="mailto:support@universelabs.com.vn">support@universelabs.com.vn</a>
-        <a href="https://universelabs.com.vn">universelabs.com.vn</a>
+      
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-nav-section">
+        <span class="footer-section-title">NAV.MAP</span>
+        <div class="footer-nav-grid">
+          <a href="#hero">Home</a>
+          <a href="#about">About</a>
+          <a href="#tech">Capabilities</a>
+          <a href="#projects">Divisions</a>
+          <a href="#operations">Operations</a>
+          <a href="#strategy">Strategy</a>
+          <a href="#terminal">Console</a>
+        </div>
       </div>
+      
+      <!-- Col 3: Contact Info -->
+      <div class="footer-contact-section">
+        <span class="footer-section-title">CONTACT.INFO</span>
+        <div class="footer-contact-details">
+          <div class="contact-item">
+            <span class="contact-label">EMAIL //</span>
+            <a href="mailto:support@universelabs.com.vn" class="contact-val">support@universelabs.com.vn</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">TELEPHONE //</span>
+            <a href="tel:+84902701624" class="contact-val">(+84) 902 701 624</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">ADDRESS //</span>
+            <span class="contact-val">15/10A C1 street, Tan Binh ward, Ho Chi Minh city, Vietnam</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bottom Row -->
       <div class="footer-bottom">
         <p>Copyright &copy; 2026 Universe Labs. All rights reserved.</p>
         <p class="telemetry-v">SYSTEM STATUS: NOMINAL | V1.3.0-TWIN</p>

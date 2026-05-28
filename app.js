@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const animateStars = () => {
-      ctx.fillStyle = '#060c0a';
+      ctx.fillStyle = '#020403';
       ctx.fillRect(0, 0, width, height);
 
       // Render cosmic mouse-reactive nebula aura
@@ -296,10 +296,20 @@ document.addEventListener('DOMContentLoaded', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      
+      // Responsive asymmetric globe positioning
+      if (window.innerWidth > 992) {
+        globeGroup.position.x = 4.5;
+      } else {
+        globeGroup.position.x = 0;
+      }
     });
 
     // A. Create the central 3D Digital Twin Globe Group
     const globeGroup = new THREE.Group();
+    if (window.innerWidth > 992) {
+      globeGroup.position.x = 4.5;
+    }
     scene.add(globeGroup);
 
     // Glowing wireframe Sphere mesh
@@ -390,6 +400,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const hudLinkLine = new THREE.Line(linkLineGeom, linkLineMat);
     scene.add(hudLinkLine);
+
+    // D. 3D Spatial HUD Lattices (nested rotating gyroscope rings and pitch ladders)
+    const gyroGroup = new THREE.Group();
+    scene.add(gyroGroup);
+
+    // Grid helper floor
+    const gridHelper = new THREE.GridHelper(90, 45, 0x00f0ff, 0x7f00ff);
+    gridHelper.position.y = -12;
+    gridHelper.material.opacity = 0.12;
+    gridHelper.material.transparent = true;
+    gridHelper.material.blending = THREE.AdditiveBlending;
+    scene.add(gridHelper);
+
+    // Horizontal compass tick ring
+    const compassRingGeom = new THREE.RingGeometry(12, 12.06, 64);
+    const compassRingMat = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.12,
+      blending: THREE.AdditiveBlending
+    });
+    const compassRing = new THREE.Mesh(compassRingGeom, compassRingMat);
+    compassRing.rotation.x = Math.PI / 2;
+    gyroGroup.add(compassRing);
+
+    // Pitch ladder / elevation ticks
+    const elevationLines = [];
+    const elevationGeom = new THREE.BufferGeometry();
+    for (let i = -10; i <= 10; i += 2) {
+      if (i === 0) continue;
+      // Draw left bar
+      elevationLines.push(-3.0, i, 0,  -2.0, i, 0);
+      elevationLines.push(-3.0, i, 0,  -3.0, i + (i > 0 ? -0.4 : 0.4), 0);
+      // Draw right bar
+      elevationLines.push(2.0, i, 0,   3.0, i, 0);
+      elevationLines.push(3.0, i, 0,   3.0, i + (i > 0 ? -0.4 : 0.4), 0);
+    }
+    elevationGeom.setAttribute('position', new THREE.Float32BufferAttribute(elevationLines, 3));
+    const elevationMat = new THREE.LineBasicMaterial({
+      color: 0x00f0ff,
+      transparent: true,
+      opacity: 0.15,
+      blending: THREE.AdditiveBlending
+    });
+    const elevationLadder = new THREE.LineSegments(elevationGeom, elevationMat);
+    gyroGroup.add(elevationLadder);
+
+    // Concentric vertical tracking rings
+    const trackingRing1Mat = new THREE.LineBasicMaterial({ color: 0x7f00ff, transparent: true, opacity: 0.08, blending: THREE.AdditiveBlending });
+    const trackingRing1 = new THREE.LineLoop(
+      new THREE.RingGeometry(8, 8.03, 64),
+      trackingRing1Mat
+    );
+    trackingRing1.rotation.y = Math.PI / 4;
+    gyroGroup.add(trackingRing1);
+
+    const trackingRing2Mat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending });
+    const trackingRing2 = new THREE.LineLoop(
+      new THREE.RingGeometry(10, 10.03, 64),
+      trackingRing2Mat
+    );
+    trackingRing2.rotation.y = -Math.PI / 4;
+    gyroGroup.add(trackingRing2);
 
     // C. Create the surrounding 1024-particle grid constellation
     const cols = 32;
@@ -626,6 +700,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Translate radar sweep ring
       radarSweep.position.y = Math.sin(elapsedTime * 1.8) * 3.55;
 
+      // Rotate Gyro Group
+      gyroGroup.rotation.y = elapsedTime * 0.05;
+      gyroGroup.rotation.x = elapsedTime * 0.02;
+
       // 6. Camera Orbit Descent path
       const angle = currentScrollProgress * Math.PI * 0.5; // 90 degree orbit
       const radius = 24 - (currentScrollProgress * 8); // zoom in
@@ -633,6 +711,10 @@ document.addEventListener('DOMContentLoaded', () => {
       let targetCameraX = Math.sin(angle) * radius;
       let targetCameraZ = Math.cos(angle) * radius;
       let targetCameraY = -currentScrollProgress * 18;
+
+      // Mouse Parallax displacement on the camera
+      targetCameraX += mouse.normX * 2.0;
+      targetCameraY += mouse.normY * 1.5;
 
       // 7. Apply CPU-driven Glitch routine to Camera & Shaders
       if (isGlitching) {
@@ -675,6 +757,13 @@ document.addEventListener('DOMContentLoaded', () => {
       hudOuterMat.opacity = 0.5 - (currentScrollProgress * 0.4);
       hudInnerMat.opacity = 0.6 - (currentScrollProgress * 0.5);
       hudLinkLine.material.opacity = 0.35 - (currentScrollProgress * 0.3);
+
+      // Fade Gyroscope and Grid Helper
+      compassRingMat.opacity = Math.max(0.12 - currentScrollProgress * 0.1, 0.02);
+      elevationMat.opacity = Math.max(0.15 - currentScrollProgress * 0.12, 0.03);
+      trackingRing1Mat.opacity = Math.max(0.08 - currentScrollProgress * 0.06, 0.01);
+      trackingRing2Mat.opacity = Math.max(0.06 - currentScrollProgress * 0.04, 0.01);
+      gridHelper.material.opacity = 0.12 + (currentScrollProgress * 0.08);
 
       renderer.render(scene, camera);
       requestAnimationFrame(animateThree);
@@ -757,58 +846,408 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     9. Projects Showcase Card Interactive 3D Tilting & Glow overlays
+     9. Orbit Matrix Core - 3D Interactive Carousel & UI Orchestrator
      ========================================================================== */
-  const projCards = document.querySelectorAll('.project-card');
-  projCards.forEach(card => {
-    const cube = card.querySelector('.cube-3d');
-    
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const cardWidth = rect.width;
-      const cardHeight = rect.height;
-      
-      // Calculate coordinates from center
-      const mouseX = e.clientX - rect.left - (cardWidth / 2);
-      const mouseY = e.clientY - rect.top - (cardHeight / 2);
-      
-      // Normalize to ranges [-1, 1]
-      const normX = mouseX / (cardWidth / 2);
-      const normY = mouseY / (cardHeight / 2);
-      
-      // Tilt card
-      const tiltX = -normY * 12;
-      const tiltY = normX * 12;
-      card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  const nodesData = [
+    {
+      title: "Terra-Twin (HCMC Edge Grid)",
+      subLabel: "SYSTEM TWIN REALITY MESH",
+      coordinate: "10.76°N, 106.66°E",
+      description: "Real-time synchronization of IoT data points directly into browser WebGL meshes. Triangulates multi-sensor feeds to automate spatial optimization.",
+      stats: [
+        { val: "98,7%", label: "SYSTEM RELIABILITY" },
+        { val: "-30%", label: "LATENCY REDUCTION" },
+        { val: "+12K", label: "TELEMETRY SYNC RATE" },
+        { val: "NOMINAL", label: "MATRIX STATUS" }
+      ],
+      hash: "ST-REF: v2.5.0-TWIN",
+      status: "SYNC ACTIVE"
+    },
+    {
+      title: "Luna-Portal (Spatial WebXR)",
+      subLabel: "WEBXR INTERFACE LAYER",
+      coordinate: "38.48°N, 12.01°W",
+      description: "Immersive XR viewport enabling direct visual overlays and gesture-controlled interfaces on spatial nodes, mapping real-time interaction.",
+      stats: [
+        { val: "90Hz", label: "RENDER FREQUENCY" },
+        { val: "< 4.2ms", label: "INTERACTION LAG" },
+        { val: "120°", label: "VIEWPORT FIELD" },
+        { val: "CALIBRATED", label: "TRACKING STATUS" }
+      ],
+      hash: "XR-REF: v3.0.4-WEB",
+      status: "90HZ LOCK"
+    },
+    {
+      title: "Ares-Mesh (Edge AI Cluster)",
+      subLabel: "EDGE COMPUTING & MODEL MESH",
+      coordinate: "47.37°N, 8.54°E",
+      description: "Decentralized AI model execution running directly on localized Jetson/ESP32 cluster meshes, prioritizing privacy and offline capability.",
+      stats: [
+        { val: "12 Nodes", label: "EDGE NODE ARRAYS" },
+        { val: "45 Tops", label: "INFERENCE RATE" },
+        { val: "15W", label: "LOW POWER DRAW" },
+        { val: "OPTIMIZED", label: "AGENT STATE" }
+      ],
+      hash: "EN-REF: v1.1.2-R&D",
+      status: "MODEL ACTIVE"
+    },
+    {
+      title: "Sol-Ledger (Consensus Core)",
+      subLabel: "CRYPTOGRAPHIC VALIDATION BLOCK",
+      coordinate: "35.67°N, 139.65°E",
+      description: "Local cryptographic validation nodes running proof-of-authority consensus blocks to ensure integrity and validation without centralized dependency.",
+      stats: [
+        { val: "100%", label: "BLOCK INTEGRITY" },
+        { val: "< 1.2s", label: "BLOCKTIME AVG" },
+        { val: "256-bit", label: "SECURE SHIELD" },
+        { val: "CONSENSUS", label: "LEDGER STATE" }
+      ],
+      hash: "SL-REF: v0.9.1-LEDG",
+      status: "BLOCKCHAIN OK"
+    }
+  ];
 
-      // Tilt interior 3D cube extra in response
-      if (cube) {
-        const cubeTiltX = -normY * 24;
-        const cubeTiltY = normX * 24;
-        cube.style.transform = `rotateX(${cubeTiltX}deg) rotateY(${cubeTiltY}deg)`;
-        
-        // Jitter cube scaling on hover slightly to simulate glitch
-        if (Math.random() > 0.96) {
-          cube.style.transform += ` scale3d(1.15, 0.85, 1.15)`;
+  let activeIndex = 0;
+  let targetRotationY = 0;
+  let currentRotationY = 0;
+
+  function updateUI(index) {
+    // Update active class on tabs
+    const tabs = document.querySelectorAll('.selector-tab');
+    tabs.forEach((tab, i) => {
+      if (i === index) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+
+    // Animate details panel using GSAP
+    if (window.gsap) {
+      gsap.to('#orbitDetailsPanel', {
+        opacity: 0,
+        x: 15,
+        duration: 0.2,
+        onComplete: () => {
+          const data = nodesData[index];
+          document.getElementById('panelSubLabel').textContent = data.subLabel;
+          document.getElementById('panelNodeTitle').textContent = data.title;
+          document.getElementById('panelCoordinate').textContent = data.coordinate;
+          document.getElementById('panelDescription').textContent = data.description;
+          
+          document.getElementById('statVal1').textContent = data.stats[0].val;
+          document.getElementById('statLabel1').textContent = data.stats[0].label;
+          document.getElementById('statVal2').textContent = data.stats[1].val;
+          document.getElementById('statLabel2').textContent = data.stats[1].label;
+          document.getElementById('statVal3').textContent = data.stats[2].val;
+          document.getElementById('statLabel3').textContent = data.stats[2].label;
+          document.getElementById('statVal4').textContent = data.stats[3].val;
+          document.getElementById('statLabel4').textContent = data.stats[3].label;
+          
+          document.getElementById('panelHashTag').textContent = data.hash;
+          document.querySelector('.hud-pulse-tag').innerHTML = `<span class="badge-pulse"></span> ${data.status}`;
+
+          // Micro scramble animation
+          scrambleText(document.getElementById('panelNodeTitle'), 400);
+          scrambleText(document.getElementById('statVal1'), 400);
+          scrambleText(document.getElementById('statVal2'), 400);
+          scrambleText(document.getElementById('statVal3'), 400);
+          scrambleText(document.getElementById('statVal4'), 400);
+
+          gsap.to('#orbitDetailsPanel', {
+            opacity: 1,
+            x: 0,
+            duration: 0.3
+          });
         }
-      }
+      });
+    } else {
+      const data = nodesData[index];
+      document.getElementById('panelSubLabel').textContent = data.subLabel;
+      document.getElementById('panelNodeTitle').textContent = data.title;
+      document.getElementById('panelCoordinate').textContent = data.coordinate;
+      document.getElementById('panelDescription').textContent = data.description;
+      
+      document.getElementById('statVal1').textContent = data.stats[0].val;
+      document.getElementById('statLabel1').textContent = data.stats[0].label;
+      document.getElementById('statVal2').textContent = data.stats[1].val;
+      document.getElementById('statLabel2').textContent = data.stats[1].label;
+      document.getElementById('statVal3').textContent = data.stats[2].val;
+      document.getElementById('statLabel3').textContent = data.stats[2].label;
+      document.getElementById('statVal4').textContent = data.stats[3].val;
+      document.getElementById('statLabel4').textContent = data.stats[3].label;
+      
+      document.getElementById('panelHashTag').textContent = data.hash;
+      document.querySelector('.hud-pulse-tag').innerHTML = `<span class="badge-pulse"></span> ${data.status}`;
+    }
+  }
 
-      // Highlight lighting position
-      const glowX = e.clientX - rect.left;
-      const glowY = e.clientY - rect.top;
-      card.style.setProperty('--proj-glow-x', `${glowX}px`);
-      card.style.setProperty('--proj-glow-y', `${glowY}px`);
+  function initOrbitCarousel() {
+    const container = document.getElementById('orbitCanvasContainer');
+    if (!container || !window.THREE) return;
+
+    const scene = new THREE.Scene();
+    
+    // Camera Setup
+    const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.z = 10;
+    camera.position.y = 1.0; 
+
+    // Renderer Setup
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // Dynamic resize
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
     });
 
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      if (cube) {
-        cube.style.transform = '';
-      }
-      card.style.setProperty('--proj-glow-x', '50%');
-      card.style.setProperty('--proj-glow-y', '50%');
+    // Parent group for orbit rotation
+    const carouselGroup = new THREE.Group();
+    scene.add(carouselGroup);
+
+    // Orbit visual path ring
+    const orbitRadius = 3.6;
+    const trajectoryGeom = new THREE.RingGeometry(orbitRadius - 0.015, orbitRadius + 0.015, 64);
+    const trajectoryMat = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.1,
+      blending: THREE.AdditiveBlending
     });
-  });
+    const trajectory = new THREE.Mesh(trajectoryGeom, trajectoryMat);
+    trajectory.rotation.x = Math.PI / 2;
+    scene.add(trajectory);
+
+    // Instantiate Node Groups
+    const nodeGroups = [];
+
+    for (let i = 0; i < 4; i++) {
+      const nodeGroup = new THREE.Group();
+      const angle = (i * Math.PI) / 2;
+      nodeGroup.position.x = Math.sin(angle) * orbitRadius;
+      nodeGroup.position.z = Math.cos(angle) * orbitRadius;
+      carouselGroup.add(nodeGroup);
+      nodeGroups.push(nodeGroup);
+
+      // Create distinctive visual geometries per node matching current themes
+      if (i === 0) {
+        // Node 01: Terra-Twin (Mesh Globe with Scan Ring)
+        const sphereGeom = new THREE.SphereGeometry(0.7, 12, 12);
+        const sphereMat = new THREE.MeshBasicMaterial({
+          color: 0x00f0ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.75
+        });
+        const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+        nodeGroup.add(sphere);
+
+        const ringGeom = new THREE.RingGeometry(0.9, 0.95, 32);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: 0x7f00ff,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.45
+        });
+        const ring = new THREE.Mesh(ringGeom, ringMat);
+        ring.rotation.x = Math.PI / 3;
+        nodeGroup.add(ring);
+      } 
+      else if (i === 1) {
+        // Node 02: Luna-Portal (Double-ringed Torus Knot)
+        const torusGeom = new THREE.TorusKnotGeometry(0.42, 0.15, 64, 8);
+        const torusMat = new THREE.MeshBasicMaterial({
+          color: 0x7f00ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.7
+        });
+        const torus = new THREE.Mesh(torusGeom, torusMat);
+        nodeGroup.add(torus);
+
+        const pointGeom = new THREE.SphereGeometry(0.85, 8, 8);
+        const pointMat = new THREE.PointsMaterial({
+          color: 0x00f0ff,
+          size: 0.04,
+          transparent: true,
+          opacity: 0.55
+        });
+        const points = new THREE.Points(pointGeom, pointMat);
+        nodeGroup.add(points);
+      } 
+      else if (i === 2) {
+        // Node 03: Ares-Mesh (Octahedron inside high-density particle swarm)
+        const octaGeom = new THREE.OctahedronGeometry(0.6, 0);
+        const octaMat = new THREE.MeshBasicMaterial({
+          color: 0x00f0ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.8
+        });
+        const octa = new THREE.Mesh(octaGeom, octaMat);
+        nodeGroup.add(octa);
+
+        const cageGeom = new THREE.SphereGeometry(0.9, 6, 6);
+        const cageMat = new THREE.MeshBasicMaterial({
+          color: 0xffffff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.25
+        });
+        const cage = new THREE.Mesh(cageGeom, cageMat);
+        nodeGroup.add(cage);
+      } 
+      else if (i === 3) {
+        // Node 04: Sol-Ledger (Tetrahedron surrounded by a rotating Cube block)
+        const tetraGeom = new THREE.TetrahedronGeometry(0.6, 0);
+        const tetraMat = new THREE.MeshBasicMaterial({
+          color: 0x7f00ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.75
+        });
+        const tetra = new THREE.Mesh(tetraGeom, tetraMat);
+        nodeGroup.add(tetra);
+
+        const boxGeom = new THREE.BoxGeometry(0.9, 0.9, 0.9);
+        const boxMat = new THREE.MeshBasicMaterial({
+          color: 0x00f0ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.35
+        });
+        const box = new THREE.Mesh(boxGeom, boxMat);
+        nodeGroup.add(box);
+      }
+    }
+
+    // Drag / Swipe Interactions
+    let isDragging = false;
+    let startX = 0;
+    let dragStartRotation = 0;
+
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      dragStartRotation = carouselGroup.rotation.y;
+      container.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      const rotationAmount = (deltaX / container.clientWidth) * Math.PI * 1.2;
+      carouselGroup.rotation.y = dragStartRotation + rotationAmount;
+      currentRotationY = carouselGroup.rotation.y;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      container.style.cursor = '';
+      
+      const snappedMultiple = Math.round(currentRotationY / (Math.PI / 2));
+      targetRotationY = snappedMultiple * (Math.PI / 2);
+      activeIndex = ((-snappedMultiple % 4) + 4) % 4;
+      updateUI(activeIndex);
+    });
+
+    // Touch events for mobile compatibility
+    container.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      dragStartRotation = carouselGroup.rotation.y;
+    });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.touches[0].clientX - startX;
+      const rotationAmount = (deltaX / container.clientWidth) * Math.PI * 1.2;
+      carouselGroup.rotation.y = dragStartRotation + rotationAmount;
+      currentRotationY = carouselGroup.rotation.y;
+    });
+
+    container.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const snappedMultiple = Math.round(currentRotationY / (Math.PI / 2));
+      targetRotationY = snappedMultiple * (Math.PI / 2);
+      activeIndex = ((-snappedMultiple % 4) + 4) % 4;
+      updateUI(activeIndex);
+    });
+
+    // Selectors tabs clicks
+    const tabs = document.querySelectorAll('.selector-tab');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetIdx = parseInt(tab.getAttribute('data-index'), 10);
+        const currentMultiple = Math.round(currentRotationY / (Math.PI / 2));
+        const currentIdx = ((-currentMultiple % 4) + 4) % 4;
+        
+        let diff = targetIdx - currentIdx;
+        if (diff > 2) diff -= 4;
+        if (diff < -2) diff += 4;
+        
+        targetRotationY = (currentMultiple - diff) * (Math.PI / 2);
+        activeIndex = targetIdx;
+        updateUI(activeIndex);
+      });
+    });
+
+    // Chevrons click binding
+    document.getElementById('orbitPrev').addEventListener('click', () => {
+      const currentMultiple = Math.round(currentRotationY / (Math.PI / 2));
+      targetRotationY = (currentMultiple + 1) * (Math.PI / 2);
+      activeIndex = (activeIndex - 1 + 4) % 4;
+      updateUI(activeIndex);
+    });
+
+    document.getElementById('orbitNext').addEventListener('click', () => {
+      const currentMultiple = Math.round(currentRotationY / (Math.PI / 2));
+      targetRotationY = (currentMultiple - 1) * (Math.PI / 2);
+      activeIndex = (activeIndex + 1) % 4;
+      updateUI(activeIndex);
+    });
+
+    // Orbit Animation frame loops
+    const clock = new THREE.Clock();
+    const animate = () => {
+      requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+
+      if (!isDragging) {
+        carouselGroup.rotation.y += (targetRotationY - carouselGroup.rotation.y) * 0.12;
+        currentRotationY = carouselGroup.rotation.y;
+      }
+
+      // Keep sub-objects spinning locally and scale active node
+      nodeGroups.forEach((group, index) => {
+        group.rotation.y = elapsedTime * 0.3 * (index % 2 === 0 ? 1 : -1);
+        group.rotation.x = elapsedTime * 0.15 * (index % 2 === 0 ? 1 : -1);
+
+        // Scale based on world camera cosine proximity
+        const groupAngle = (index * Math.PI) / 2;
+        const proximity = Math.cos(carouselGroup.rotation.y + groupAngle); 
+        
+        const scaleFactor = 0.8 + (proximity + 1) * 0.25; 
+        group.scale.set(scaleFactor, scaleFactor, scaleFactor);
+      });
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  }
+
+  // Initialize Orbit Carousel
+  initOrbitCarousel();
 
   /* ==========================================================================
      10. Entrance GSAP animations

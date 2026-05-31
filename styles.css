@@ -459,6 +459,7 @@ ul {
 .logo-svg {
   width: 40px;
   height: 40px;
+  object-fit: contain;
 }
 
 .brand-name {
@@ -1402,6 +1403,7 @@ ul {
 .footer-logo-svg {
   width: 28px;
   height: 28px;
+  object-fit: contain;
 }
 
 .footer-brand {

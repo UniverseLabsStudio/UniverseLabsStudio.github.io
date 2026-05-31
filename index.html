@@ -19,6 +19,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="public/images/ul-logo.png">
+  <link rel="shortcut icon" type="image/x-icon" href="public/images/ul-logo.ico">
+
   <!-- Stylesheets -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -67,43 +71,8 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#" class="nav-logo" id="navLogo">
-        <!-- SVG Planet Logo -->
-        <svg class="logo-svg" viewBox="0 0 120 120" xmlns="https://www.w3.org/2000/svg">
-          <defs>
-            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <radialGradient id="planetGrad" cx="35%" cy="35%" r="65%">
-              <stop offset="0%" stop-color="#e0f7fc" />
-              <stop offset="40%" stop-color="#00b8d4" />
-              <stop offset="80%" stop-color="#004d40" />
-              <stop offset="100%" stop-color="#001a14" />
-            </radialGradient>
-            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#00f0ff" />
-              <stop offset="50%" stop-color="#ffffff" />
-              <stop offset="100%" stop-color="#7f00ff" stop-opacity="0.2" />
-            </linearGradient>
-          </defs>
-          <g transform="rotate(-15 60 60)">
-            <path d="M 110,60 A 50,12 0 0,0 10,60" fill="none" stroke="url(#ringGrad)" stroke-width="4" stroke-linecap="round" opacity="0.8" />
-            <circle cx="60" cy="60" r="30" fill="url(#planetGrad)" stroke="#00f0ff" stroke-width="0.5" />
-            <path d="M 33,50 C 45,53 75,53 87,50" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" />
-            <path d="M 30,60 C 45,64 75,64 90,60" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" />
-            <path d="M 33,70 C 45,75 75,75 87,70" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" />
-            <path d="M 40,54 H 80 C 83,54 85,56 85,59 V 63 C 85,66 83,68 80,68 H 68 C 66,68 64,66 60,66 C 56,66 54,68 52,68 H 40 C 37,68 35,66 35,63 V 59 C 35,56 37,54 40,54 Z" fill="#02090b" stroke="#00f0ff" stroke-width="2.5" filter="url(#neonGlow)" />
-            <path d="M 42,57 H 78 V 59 H 42 Z" fill="#ffffff" opacity="0.7" />
-            <circle cx="46" cy="62" r="1.5" fill="#00f0ff" />
-            <circle cx="74" cy="62" r="1.5" fill="#00f0ff" />
-            <path d="M 35,61 C 28,61 24,59 20,60" fill="none" stroke="#00f0ff" stroke-width="2" />
-            <path d="M 85,61 C 92,61 96,59 100,60" fill="none" stroke="#00f0ff" stroke-width="2" />
-            <path d="M 10,60 A 50,12 0 0,0 110,60" fill="none" stroke="url(#ringGrad)" stroke-width="4" stroke-linecap="round" filter="url(#neonGlow)" />
-          </g>
-        </svg>
+        <!-- Brand Logo PNG -->
+        <img class="logo-svg" src="public/images/ul-logo.png" alt="Universe Labs Logo">
         <span class="brand-name">Universe Labs</span>
       </a>
       
@@ -592,13 +561,7 @@
       <!-- Col 1: Branding -->
       <div class="footer-brand-section">
         <div class="footer-logo">
-          <svg class="footer-logo-svg" viewBox="0 0 120 120" xmlns="https://www.w3.org/2000/svg" width="28" height="28">
-            <g transform="rotate(-15 60 60)">
-              <circle cx="60" cy="60" r="30" fill="#00f0ff" opacity="0.1"/>
-              <circle cx="60" cy="60" r="25" fill="#02090b" stroke="#00f0ff" stroke-width="1.5"/>
-              <path d="M 40,56 H 80 C 83,56 85,58 85,61 V 63 C 85,66 83,68 80,68 H 68 C 66,68 64,66 60,66 C 56,66 54,68 52,68 H 40 C 37,68 35,66 35,63 V 61 C 35,58 37,56 40,56 Z" fill="#02090b" stroke="#00f0ff" stroke-width="1.5"/>
-            </g>
-          </svg>
+          <img class="footer-logo-svg" src="public/images/ul-logo.png" alt="Universe Labs Logo" width="28" height="28">
           <span class="footer-brand">Universe Labs</span>
         </div>
         <p class="footer-tagline">Synthesizing spatial realities, real-time 3D twins, and low-latency edge networks.</p>
